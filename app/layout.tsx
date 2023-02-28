@@ -34,7 +34,7 @@ export default function RootLayout({
                 <div className="mx-auto max-w-2x1">
                     {header}
                     {children}
-                    {footer}
+                    {footer}                    
                 </div>
             </body>
         </html>
