@@ -1,6 +1,5 @@
 import Link from "next/link"
 import '@/styles/globals.css'
-import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: 'Create Next App',
@@ -24,8 +23,7 @@ export default function RootLayout({
 
     const footer = (
             <footer className="border">
-                <h3>Developed by Yoon Hee Cheol</h3>
-                <Analytics />
+                <h3>Developed by Yoon Hee Cheol</h3>                
             </footer>
         )
 
