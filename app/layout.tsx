@@ -1,5 +1,5 @@
 import Link from "next/link"
-import '../styles/globals.scss'
+import '../styles/globals.css'
 
 export default function RootLayout({
   children,
