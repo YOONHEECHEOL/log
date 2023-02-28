@@ -7,7 +7,6 @@ const PostPreview = (props: PostMetaData) => {
                 <Link href={`/posts/${props.slug}`}>
                     <h2 className="text-cyan-700 font-bold">{props.title}</h2>
                 </Link>
-                <div className="">{props.idx}</div>
                 <p className="text-[0.8rem]">{props.subtitle}</p>
                 <p className="text-[0.6rem]">{props.date}</p>
             </div>
