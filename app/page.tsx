@@ -6,13 +6,13 @@ import PostPreview from '@/components/PostPreview';
 export default function Home() {
 
   const postMetaData = getPostMetaData();
-  const postPreviews = postMetaData.map((post) => (
+  const postPreviews = postMetaData.map((post, idx) => (
         <PostPreview {...post} key={post.slug} />
     ));
 
   return (
-    <main>
+    <div className='columns'>
       {postPreviews}
-    </main>
+    </div>
   )
 }
