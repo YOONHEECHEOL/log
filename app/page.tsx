@@ -1,4 +1,4 @@
-import getPostMetaData from '../components/getPostMetaData';
+import getPostMetaData from './interface/getPostMetaData';
 import Link from 'next/link';
 import PostPreview from '@/components/PostPreview';
 

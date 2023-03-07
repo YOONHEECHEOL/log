@@ -18,7 +18,7 @@ export default function RootLayout({
 
     const footer = (
             <footer className="text-center">
-                <h3>Developed by Yoon Hee Cheol</h3>                
+                <h3>Developed by Yoon Hee Cheol</h3>
             </footer>
         )
 
