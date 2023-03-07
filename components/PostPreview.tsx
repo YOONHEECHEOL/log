@@ -4,16 +4,13 @@ import { PostMetaData } from "../app/interface/PostMetaData";
 const PostPreview = (props: PostMetaData) => {
     
     return (
-            <div key={props.slug} className='border rounded p-4 m-4'>
-                <Link href={{
-                    pathname: `${props.slug}`,
-                    query: { slug: props.slug },
-                }}>                
+            <Link href={`posts/${props.year}/${props.slug}`}>                
+                <div key={props.slug} className='border rounded p-4 m-4'>
                     <h2 className="text-cyan-700 font-bold">{props.title}</h2>
-                </Link>
-                <p className="text-[0.8rem]">{props.subtitle}</p>
-                <p className="text-[0.6rem]">{props.date}</p>
-            </div>
+                    <p className="text-[0.8rem]">{props.subtitle}</p>
+                    <p className="text-[0.6rem]">{props.date}</p>
+                </div>
+            </Link>
         )
 }
 

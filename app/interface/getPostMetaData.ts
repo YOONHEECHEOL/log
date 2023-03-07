@@ -4,39 +4,38 @@ import path from 'path';
 import { PostMetaData } from "./PostMetaData";
 
 const getPostMetaData = (): PostMetaData[] => {
-    // dir, file 탐색
+    // 게시글 root 위치
     const folder = "posts/";
-    // const files = fs.readdirSync(folder);
 
-    const getAllFiles:any = (dir:any) =>
-    fs.readdirSync(dir).reduce((files: any, file) => {
-        const name:fs.PathLike = path.join(dir, file);
-        const isDirectory = fs.statSync(name).isDirectory();
-        return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
-    }, []);
-
+    // 모든 게시글
     let result = getAllFiles(folder);
-    console.log(result)
-
-    // const markdownPosts = files.filter((file, idx) => {
-    //     return true;
-    // });
   
     const posts = result.map((fileName: string) => {
         const fileContents = fs.readFileSync(`${fileName}`, 'utf8');
         const matterResult = matter(fileContents);
 
+        // year, slug 분리
+        const YEAR = fileName.slice(6, 10);
+        const SLUG = fileName.slice(11, 15);
+
         return {
             title: matterResult?.data?.title,
             date: matterResult?.data?.date,
             subtitle: matterResult?.data?.subtitle,
-            slug: fileName.replace('.md', '')
+            year: YEAR,
+            slug: SLUG
         }
     })
-
-    console.log(posts)
 
     return posts;
   }
 
-  export default getPostMetaData;
+export default getPostMetaData;
+
+// 모든 게시글 배열로 반환
+export const getAllFiles:any = (dir:any) =>
+fs.readdirSync(dir).reduce((files: any, file) => {
+    const name:fs.PathLike = path.join(dir, file);
+    const isDirectory = fs.statSync(name).isDirectory();
+    return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
+}, []);
