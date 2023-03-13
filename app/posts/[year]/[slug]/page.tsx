@@ -1,4 +1,4 @@
-import getPostMetaData from '@/app/interface/getPostMetaData';
+import getPostMetaData from '@/app/utils/getPostMetaData';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';

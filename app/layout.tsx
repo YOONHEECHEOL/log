@@ -1,5 +1,7 @@
-import Link from "next/link"
+import Lnb from '@/components/Lnb'
 import '../styles/globals.css'
+import Footer from './layout/Footer'
+import Header from './layout/Header'
 
 export default function RootLayout({
   children,
@@ -7,29 +9,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-    const header = (
-            <header>
-                <div className="text-center bg-slate-800 p-8 mb-4">
-                    <Link href={'/'}><h1 className="text-3x1 font-bold text-white">Yoon Log</h1></Link>
-                    <p className="text-slate-400">Welcome to my dev log.</p>
-                </div>
-            </header>
-        )
-
-    const footer = (
-            <footer className="text-center">
-                <h3>Developed by Yoon Hee Cheol</h3>
-            </footer>
-        )
+    // render layout
+    const header = <Header />
+    const footer = <Footer />
 
     return (
         <html lang="en">
             <head />
             <body>
                 <div className="container-sm mx-auto max-w-2x1">
-                    {header}
-                    {children}
-                    {footer}                    
+                    <div className='flex flex-auto justify-around columns-2'>
+                        {/* <div className={`w-full ${isFold ? '' : 'md:w-1/4'}`}>
+                            <button onClick={() => {
+                                setIsFold(!isFold)d
+                                console.log(isFold)
+                                }}>fold</button>
+                            
+                        </div> */}
+                        <Lnb />
+                        <div className={`w-full md:w-3/4`}>
+                            {header}
+                            {children}
+                            {footer}
+                        </div>
+                    </div>                    
                 </div>
             </body>
         </html>
