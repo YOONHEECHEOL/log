@@ -22,6 +22,7 @@ const getPostMetaData = (): PostMetaData[] => {
             title: matterResult?.data?.title,
             date: matterResult?.data?.date,
             subtitle: matterResult?.data?.subtitle,
+            tag: matterResult?.data.tag,
             year: YEAR,
             slug: SLUG
         }

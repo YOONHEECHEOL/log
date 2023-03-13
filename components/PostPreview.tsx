@@ -9,6 +9,7 @@ const PostPreview = (props: PostMetaData) => {
                     <h2 className="text-cyan-700 font-bold">{props.title}</h2>
                     <p className="text-[0.8rem]">{props.subtitle}</p>
                     <p className="text-[0.6rem]">{props.date}</p>
+                    <p className="text-[0.6rem]">{props.tag}</p>
                 </div>
             </Link>
         )

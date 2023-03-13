@@ -2,6 +2,7 @@ import Lnb from '@/components/Lnb'
 import '../styles/globals.css'
 import Footer from './layout/Footer'
 import Header from './layout/Header'
+import Tags from './layout/Tags'
 
 export default function RootLayout({
   children,
@@ -12,6 +13,7 @@ export default function RootLayout({
     // render layout
     const header = <Header />
     const footer = <Footer />
+    const tags = <Tags />
 
     return (
         <html lang="en">
@@ -19,16 +21,10 @@ export default function RootLayout({
             <body>
                 <div className="container-sm mx-auto max-w-2x1">
                     <div className='flex flex-auto justify-around columns-2'>
-                        {/* <div className={`w-full ${isFold ? '' : 'md:w-1/4'}`}>
-                            <button onClick={() => {
-                                setIsFold(!isFold)d
-                                console.log(isFold)
-                                }}>fold</button>
-                            
-                        </div> */}
-                        <Lnb />
-                        <div className={`w-full md:w-3/4`}>
+                        {/* <Lnb /> */}
+                        <div className={`w-full`}>
                             {header}
+                            {tags}
                             {children}
                             {footer}
                         </div>
