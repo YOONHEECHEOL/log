@@ -13,7 +13,6 @@ export default function RootLayout({
     // render layout
     const header = <Header />
     const footer = <Footer />
-    const tags = <Tags />
 
     return (
         <html lang="en">
@@ -24,7 +23,6 @@ export default function RootLayout({
                         {/* <Lnb /> */}
                         <div className={`w-full`}>
                             {header}
-                            {tags}
                             {children}
                             {footer}
                         </div>
