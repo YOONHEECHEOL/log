@@ -2,7 +2,6 @@ import Lnb from '@/components/Lnb'
 import '../styles/globals.css'
 import Footer from './layout/Footer'
 import Header from './layout/Header'
-import Tags from './layout/Tags'
 
 export default function RootLayout({
   children,
@@ -18,8 +17,8 @@ export default function RootLayout({
         <html lang="en">
             <head />
             <body>
-                <div className="container-sm mx-auto max-w-2x1">
-                    <div className='flex flex-auto justify-around columns-2'>
+                <div className="container-sm mx-auto min-w-fit">
+                    <div className='flex flex-auto justify-around'>
                         {/* <Lnb /> */}
                         <div className={`w-full`}>
                             {header}

@@ -8,7 +8,7 @@ const getPostMetaData = (): PostMetaData[] => {
     const folder = "posts/";
 
     // 모든 게시글
-    let result = getAllFiles(folder);
+    let result = getAllFiles(folder).reverse();
   
     const posts = result.map((fileName: string) => {
         const fileContents = fs.readFileSync(`${fileName}`, 'utf8');
@@ -16,7 +16,7 @@ const getPostMetaData = (): PostMetaData[] => {
 
         // year, slug 분리
         const YEAR = fileName.slice(6, 10);
-        const SLUG = fileName.slice(11, 15);
+        const SLUG = fileName.slice(11, fileName.length - 3);
 
         return {
             title: matterResult?.data?.title,

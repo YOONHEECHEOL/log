@@ -6,6 +6,7 @@ import * as gtag from 'lib/gtag'
 import Script from "next/script"
 import { ReactNode } from 'react';
 import Tags from '@/app/layout/Tags';
+import Nav from '@/app/layout/Nav';
 
 export const generateStaticParams = async () => {
     const posts = getPostMetaData();
@@ -39,10 +40,10 @@ const Page = (props: any) => {
 
     const post = getPostContent(year, slug);
 
-    return <div>
-            <h1 className='page__title'>{post.data.title}</h1>
+    return <div className='prose min-h-screen max-w-full mx-4'>
+            <h1 className='flex justify-center py-3 font-bold'>{post.data.title}</h1>            
             <Tags />
-            <article className="prose lg:prose-xl">
+            <article className="">
                 <Markdown
                     options={{
                         forceBlock: true,

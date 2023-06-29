@@ -4,11 +4,6 @@
 
 * { font-family: 'Noto Sans KR', sans-serif; }
 
-.foo {font-size: 0.8em !important;padding: 1em;}
-.prose {max-width: 100% !important; margin: 0 2rem !important;}
-
 /* page */
-.page__title {text-align: center;font-size: 1.6em !important;font-weight: 700;}
 
 /* tags */
-.tags {text-align: center;}
