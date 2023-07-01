@@ -485,6 +485,8 @@ console.log(fetched); // Promise {<pending>}
 
 ## async / await
 
+async / await를 이용하면 Promise를 수정하기  
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -542,7 +544,7 @@ console.log(fetched); // Promise {<pending>}
     </script>
 </html>
 ```  
-아래는 수정 필요  
+async/await와 callback을 함께 사용하여 수정해보기  
 
 ```html
 <!DOCTYPE html>
@@ -559,32 +561,37 @@ console.log(fetched); // Promise {<pending>}
     const root = document.querySelector('#root');
 
     const getData = async function(url, callback) {
-        const result =  await fetch(url)
-                            .then(res => res.json())
-                            .then(res => res);
+        const result = await fetch(url)
+            .then(res => res.json())
+            .then(res => res);
+
         return callback(result);
     }
 
-    function print() {
+    async function print() {
         root.innerHTML += `=========================<br />
                     회원 리스트를 출력합니다..<br />
                     =========================<br />
                     `;
 
-        const userList = getData('https://jsonplaceholder.typicode.com/users', function(args) {
-            let list = [];
-            args.forEach(person => list.push(person.name));
-            return list;
+        const userList = await getData('https://jsonplaceholder.typicode.com/users', function(args) {
+            return args.map(person => person.name + '<br />');
         });
         root.innerHTML += userList;
 
-        const todoList = getData('https://jsonplaceholder.typicode.com/todos', function(args) {           
-            return `${args.length}`;
+        const todoList = await getData('https://jsonplaceholder.typicode.com/todos', function(args) {           
+            return `-----------------------------<br />
+                    ${args.length}개의 할일이 있습니다.<br />
+                    ----------------------------<br />
+                    `;
         });
         root.innerHTML += todoList;
 
-        const postList = getData('https://jsonplaceholder.typicode.com/posts', function(args) {
-            return `${args.length}`;
+        const postList = await getData('https://jsonplaceholder.typicode.com/posts', function(args) {
+            return `-----------------------------<br />
+                    ${args.length}개의 게시글이 있습니다.<br />
+                    ----------------------------<br />
+                    `;
         });
         root.innerHTML += postList;
 
