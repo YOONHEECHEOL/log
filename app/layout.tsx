@@ -17,7 +17,9 @@ export default function RootLayout({
         <html lang="en">
             <head />
             <body>
-                <div className="container-sm mx-auto min-w-fit">
+                <div className="
+                    container-sm mx-auto min-w-fit
+                    xl:text-xl lg:text-lg md:text-md sm:text-sm">
                     <div className='flex flex-auto justify-around'>
                         {/* <Lnb /> */}
                         <div className={`w-full`}>

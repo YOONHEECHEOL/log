@@ -1,6 +1,14 @@
 "use client"
 
-const Nav = (props:any) => {
+import { useEffect, useState } from "react";
+
+const Nav = (props: any) => {
+    
+    let [wt, setWt] = useState()
+
+    useEffect(() => {
+        console.log('asdf')
+    }, [])
 
     const printMonthList = (thisMonth: string) => {
         let leftSide = [];

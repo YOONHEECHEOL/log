@@ -11,7 +11,7 @@ export default function Home() {
     ));
 
   return (
-    <div className='columns'>      
+    <div className='columns 2xl:max-w-6xl lg:max-w-4xl sm:max-w-full mx-auto'>      
       <PostPreviewList 
         // nav={<Nav />}
         list={postPreviews}
