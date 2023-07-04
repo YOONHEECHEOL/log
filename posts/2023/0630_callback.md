@@ -560,13 +560,9 @@ async/await와 callback을 함께 사용하여 수정해보기
 <script>
     const root = document.querySelector('#root');
 
-    const getData = async function(url, callback) {
-        const result = await fetch(url)
-            .then(res => res.json())
-            .then(res => res);
+    const fetchUrl = (url) => fetch(url).then(res => res.json());
 
-        return callback(result);
-    }
+    const fetchCallback = async (url, callback) => callback(await fetchUrl(url));
 
     async function print() {
         root.innerHTML += `=========================<br />
@@ -574,12 +570,12 @@ async/await와 callback을 함께 사용하여 수정해보기
                     =========================<br />
                     `;
 
-        const userList = await getData('https://jsonplaceholder.typicode.com/users', function(args) {
+        const userList = await fetchCallback('https://jsonplaceholder.typicode.com/users', function(args) {
             return args.map(person => person.name + '<br />');
         });
         root.innerHTML += userList;
 
-        const todoList = await getData('https://jsonplaceholder.typicode.com/todos', function(args) {           
+        const todoList = await fetchCallback('https://jsonplaceholder.typicode.com/todos', function(args) {           
             return `-----------------------------<br />
                     ${args.length}개의 할일이 있습니다.<br />
                     ----------------------------<br />
@@ -587,7 +583,7 @@ async/await와 callback을 함께 사용하여 수정해보기
         });
         root.innerHTML += todoList;
 
-        const postList = await getData('https://jsonplaceholder.typicode.com/posts', function(args) {
+        const postList = await fetchCallback('https://jsonplaceholder.typicode.com/posts', function(args) {
             return `-----------------------------<br />
                     ${args.length}개의 게시글이 있습니다.<br />
                     ----------------------------<br />
