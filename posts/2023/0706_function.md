@@ -86,4 +86,21 @@ tel = function() {
 
 ### 함수 표현식으로 클로져 생성하기
 
+```js
+function tabsHandler(index) {
+    return function tabClickEvent(event) {
+        console.log(index); // 클로져를 활용하여 외부에서 index에 접근함
+    };
+}
+
+var tabs = document.querySelectorAll('.tab');
+var i;
+
+for(i = 0; i < tabs.length; i++) {
+    tabs[i].onclick = tabHandler(i);
+}
+```  
+
+
+
 [함수선언식과 함수표현식](https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/)
