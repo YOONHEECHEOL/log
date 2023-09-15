@@ -4,5 +4,7 @@ export interface PostMetaData {
     subtitle: string,
     tag: string,
     year: string,
+    month: string,
+    day: string,
     slug: string,
 }

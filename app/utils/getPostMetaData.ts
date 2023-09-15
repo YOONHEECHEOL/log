@@ -14,17 +14,21 @@ const getPostMetaData = (): PostMetaData[] => {
         const fileContents = fs.readFileSync(`${fileName}`, 'utf8');
         const matterResult = matter(fileContents);
 
-        // year, slug 분리
-        const YEAR = fileName.slice(6, 10);
-        const SLUG = fileName.slice(11, fileName.length - 3);
+        // year, month, day, slug 분리
+        const [root, year, month, day, slug] = fileName.split('/');
+        // const YEAR = fileName.slice(6, 10);
+        // const MONTH = fileName
+        // const SLUG = fileName.slice(11, fileName.length - 3);
 
         return {
             title: matterResult?.data?.title,
             date: matterResult?.data?.date,
             subtitle: matterResult?.data?.subtitle,
             tag: matterResult?.data.tag,
-            year: YEAR,
-            slug: SLUG
+            year: year,
+            month: month,
+            day: day,
+            slug: slug
         }
     })
 
