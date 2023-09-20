@@ -4,9 +4,9 @@ import Footer from './layout/Footer'
 import Header from './layout/Header'
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
 
     // render layout
@@ -27,7 +27,7 @@ export default function RootLayout({
                             {children}
                             {footer}
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </body>
         </html>

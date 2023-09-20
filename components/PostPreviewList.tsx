@@ -14,17 +14,17 @@ const PostPreviewList = (props: any) => {
         setSelectedMonth(date);
     }, [])
 
-    const printList = (list:any) => {
+    const printList = (list: any) => {
 
         let result = list;
 
         result = result.filter((x: { props: { href: any; }; }) => {
             const date = x.props.href.split('/');
             const year = String(date[1]);
-            const month = String(date[2]).slice(0, 2);
+            const month = String(date[2]);
 
-            if(year !== selectedYear) return false;
-            if(month !== selectedMonth) return false;
+            if (year !== selectedYear || year?.length !== 4) return false;
+            if (month !== selectedMonth) return false;
 
             return true;
         })
@@ -33,16 +33,16 @@ const PostPreviewList = (props: any) => {
     }
 
     return (
-            <>
-                <Nav
-                    selectedYear={selectedYear}
-                    setSelectedYear={setSelectedYear}
-                    selectedMonth={selectedMonth}
-                    setSelectedMonth={setSelectedMonth}
-                />
-                {printList(props.list)}
-            </>
-        )
+        <>
+            <Nav
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
+            />
+            {printList(props.list)}
+        </>
+    )
 }
 
 export default PostPreviewList;

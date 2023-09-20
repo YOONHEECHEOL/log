@@ -15,10 +15,7 @@ const getPostMetaData = (): PostMetaData[] => {
         const matterResult = matter(fileContents);
 
         // year, month, day, slug 분리
-        const [root, year, month, day, slug] = fileName.split('/');
-        // const YEAR = fileName.slice(6, 10);
-        // const MONTH = fileName
-        // const SLUG = fileName.slice(11, fileName.length - 3);
+        const [root, year, month, slug] = fileName.split('/');
 
         return {
             title: matterResult?.data?.title,
@@ -27,7 +24,6 @@ const getPostMetaData = (): PostMetaData[] => {
             tag: matterResult?.data.tag,
             year: year,
             month: month,
-            day: day,
             slug: slug
         }
     })
@@ -41,6 +37,9 @@ export default getPostMetaData;
 export const getAllFiles:any = (dir:any) =>
 fs.readdirSync(dir).reduce((files: any, file) => {
     const name:fs.PathLike = path.join(dir, file);
+
+    if(name === dir + '.DS_Store') return files;
+
     const isDirectory = fs.statSync(name).isDirectory();
     return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
 }, []);
