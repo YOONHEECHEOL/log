@@ -2,11 +2,9 @@ import getPostMetaData from '@/app/utils/getPostMetaData';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';
-import * as gtag from 'lib/gtag'
-import Script from "next/script"
-import { ReactNode } from 'react';
 import Tags from '@/app/layout/Tags';
-import Nav from '@/app/layout/Nav';
+import { CodeBlock, PreBlock } from '@/components/CodeBlock';
+
 
 export const generateStaticParams = async () => {
     const posts = getPostMetaData();
@@ -31,18 +29,11 @@ const getPostContent = (year: any, month: string, slug: any) => {
 
 interface ChildrenNode {
     className: string;
-    children: ReactNode;
+    children: string | string[];
 }
 const H1 = ({ children, ...props }: ChildrenNode) => {
     return <pre {...props}>{children}</pre>
 };
-
-const Code = (props: ChildrenNode) => {
-    const language = props?.className.replace('lang-', '');
-
-
-    return <></>;
-}
 
 const Page = (props: any) => {
 
@@ -56,14 +47,16 @@ const Page = (props: any) => {
         <article className="">
             <Markdown
                 options={{
-                    forceBlock: true,
                     overrides: {
                         h1: {
                             component: H1,
                             props: {
                                 className: "foo",
                             }
-                        }
+                        },
+                        pre: {
+                            component: PreBlock,
+                        },
                     }
                 }}
             >
