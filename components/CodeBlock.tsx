@@ -1,44 +1,51 @@
 "use client";
+import { useEffect, useState } from "react";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface ChildrenNode {
     className: string;
     children: string | string[];
 }
 export const CodeBlock = ({ className, children }: ChildrenNode) => {
-    let lang = "text";
 
-    // console.log(className);
-    if (className && className.startsWith("lang-")) {
-        lang = className.replace("lang-", "");
-    }
-    // console.log(lang);
+    const [style, setStyle] = useState(vscDarkPlus);
+
+    useEffect(() => {
+        setStyle(vscDarkPlus)
+    }, [])
 
     return (
-        <>
-            <SyntaxHighlighter
-                language={lang.toLowerCase()}
-                style={materialDark}
-            >
-                {children}
-            </SyntaxHighlighter>
-        </>
+        <SyntaxHighlighter
+            language={className}
+            style={style}
+        >
+            {children}
+        </SyntaxHighlighter>
     );
 };
 
 export const PreBlock = ({ children, ...rest }: any) => {
-    if ("type" in children && children["type"] === "code") {
-        // console.log(children["props"]?.className);
 
+    const [classValue, setClassValue] = useState(children["props"]?.className);
+
+    // https://nextjs.org/docs/messages/react-hydration-error
+    useEffect(() => {
+        console.log(classValue);
+        let lang = 'text';
+        if (classValue && classValue.startsWith("lang-")) {
+            lang = classValue.replace("lang-", "");
+            setClassValue(lang.toLowerCase());
+        }
+    }, [children["props"]?.className])
+
+    if ("type" in children && children["type"] === "code") {
         return (
             <CodeBlock
-                className={"language-javascript"}
+                className={classValue}
                 children={children["props"]?.children}
             />
         );
     }
-    return <pre {...rest}>{children}</pre>;
-
-    // return CodeBlock(children["props"]);
+    return <div {...rest}>{children}</div>;
 };

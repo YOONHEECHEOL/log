@@ -53,17 +53,8 @@ const Page = (props: any) => {
                                     className: "foo",
                                 },
                             },
-                            // pre: {
-                            //     component: PreBlock,
-                            // },
-                            code: {
-                                component: CodeBlock,
-                                props: {
-                                    className: (props: any) => {
-                                        console.log(">>>" + props);
-                                        return "123";
-                                    },
-                                },
+                            pre: {
+                                component: PreBlock,
                             },
                         },
                     }}
