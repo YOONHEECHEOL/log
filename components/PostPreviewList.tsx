@@ -1,15 +1,18 @@
 "use client"
 
 import Nav from "@/app/layout/Nav";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToggleButton from "./Toggle/Toggle";
 
 const PostPreviewList = (props: any) => {
 
-    let [isFilterDate, setIsFilterDate] = useState(true);
+    // 년/월 필터
+    const [isFilterDate, setIsFilterDate] = useState(true);
+    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState('');
 
-    let [selectedYear, setSelectedYear] = useState('');
-    let [selectedMonth, setSelectedMonth] = useState('');
+    // 검색
+    const [searchFilter, setSearchFilter] = useState('');
 
     useEffect(() => {
         let year = String(new Date().getFullYear());
@@ -53,6 +56,18 @@ const PostPreviewList = (props: any) => {
             })
         }
 
+        if (searchFilter && searchFilter.length > 0) {
+            result = result.filter((el: any) => {
+                const { subtitle, tag, title } = el.props['data-info'];
+
+                if (subtitle?.indexOf(searchFilter) > -1) return true;
+                if (tag?.indexOf(searchFilter) > -1) return true;
+                if (title?.indexOf(searchFilter) > -1) return true;
+
+                return false;
+            })
+        }
+
         return result;
     }
 
@@ -61,8 +76,24 @@ const PostPreviewList = (props: any) => {
 
     return (
         <>
-            <div className="border-b pt-1 px-3">
-                <ToggleButton label={'년/월 필터'} onClick={(e: any) => setIsFilterDate(!isFilterDate)} />
+            <div className="flex align-middle justify-between border-b pt-1 px-2">
+                <div>
+                    <ToggleButton label={'년/월'} onClick={(e: any) => setIsFilterDate(!isFilterDate)} />
+                </div>
+                <form>
+                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                    <div className="relative mb-1">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input onChange={(e) => { setSearchFilter(e.target.value) }} type="search" id="search" className="block w-full p-4 sm:p-4 sm:pl-8 pl-10 text-sm text-gray-900 border border-gray-300 rounded bg-gray-50" placeholder="Search" required />
+                        {/* <button type="submit" className="text-white absolute right-2 bottom-2.5 bg-blue-700 font-medium rounded text-sm px-2 py-2"
+                            onClick={() => setSearchFilter(inputValue)}
+                        >Search</button> */}
+                    </div>
+                </form>
             </div>
             {
                 !isFilterDate && <Nav
@@ -92,34 +123,66 @@ const PostPreviewList = (props: any) => {
                     }
 
                     return (
-                        <div className="flex justify-between" key={el?.props?.href}>
-                            <div className="w-1/5 flex flex-col justify-center  px-3">
-                                {!isYearInclude ?
-                                    <div className="flex justify-between text-right">
-                                        <span className="text-slate-500 text-2xl text-center">{year}<br /><span className="text-slate-300 text-sm">({yearArticleCnt[year]})</span></span>
-                                        {
-                                            !isMonthInclude && (
-                                                <span className="text-orange-500 text-2xl">
-                                                    <span>{month}</span><br />
-                                                    <span className="text-slate-300 text-sm">({monthArticleCnt[year + '-' + month]})</span>
-                                                </span>
-                                            )
-                                        }
-                                    </div>
-                                    : <div className="text-2xl text-slate-500 flex justify-end text-right">
-                                        {
-                                            !isMonthInclude && (
-                                                <span className="text-slate-500 text-2xl">
-                                                    <span>{month}</span><br />
-                                                    <span className="text-slate-300 text-sm">({monthArticleCnt[year + '-' + month]})</span>
-                                                </span>
-                                            )
+                        <div key={el?.props?.href + idx}>
+                            {
+                                isFilterDate && !isYearInclude &&
+                                <span className="md:hidden lg:hidden text-slate-500 text-xl text-center pt-4 sm:block sm:pt-2">
+                                    <span>{year}</span>
+                                    <span className="text-slate-300 text-sm">
+                                        ({yearArticleCnt[year]})
+                                    </span>
+                                </span>
+                            }
+                            <div className={isFilterDate ?
+                                `flex justify-between p-4 pb-0 pl-0
+                                    sm:p-2 sm:pb-0 sm:pl-0
+                                ` : "block p-4 pb-0 pl-0 sm:p-2 sm:pb-0"}
+                            >
+                                {
+                                    isFilterDate && <div className="
+                                        w-1/5 flex flex-col justify-center px-4
+                                        lg:text-2xl
+                                        md:text-base
+                                        sm:sm:text-sm sm:px-0
+                                    ">
+                                        {!isYearInclude ?
+                                            <>
+                                                <div className="
+                                                    flex justify-between text-right
+                                                    sm:flex-col sm:text-center
+                                                ">
+                                                    <span className="text-slate-500 text-center sm:hidden">
+                                                        <span>{year}</span><br className="sm:hidden" />
+                                                        <span className="text-slate-300 text-sm sm:text-xs">
+                                                            ({yearArticleCnt[year]})
+                                                        </span>
+                                                    </span>
+                                                    {
+                                                        !isMonthInclude && (
+                                                            <span className="text-orange-500">
+                                                                <span>{month}</span><br className="sm:hidden" />
+                                                                <span className="text-slate-300 text-sm sm:text-xs">({monthArticleCnt[year + '-' + month]})</span>
+                                                            </span>
+                                                        )
+                                                    }
+                                                </div>
+                                            </>
+                                            : <div className="text-slate-500 flex justify-end text-right sm:justify-center">
+                                                {
+                                                    !isMonthInclude && (
+                                                        <span className="text-slate-500">
+                                                            <span>{month}</span><br className="sm:hidden" />
+                                                            <span className="text-slate-300 text-sm sm:text-xs">({monthArticleCnt[year + '-' + month]})</span>
+                                                        </span>
+                                                    )
+                                                }
+                                            </div>
                                         }
                                     </div>
                                 }
-                            </div>
-                            <div className="w-4/5">
-                                {el}
+                                <div className={isFilterDate ? "w-4/5" : ""}>
+                                    {el}
+                                </div>
                             </div>
                         </div>
                     );

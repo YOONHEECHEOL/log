@@ -39,10 +39,14 @@ const Page = (props: any) => {
 
     return (
         <div className="prose min-h-screen max-w-full mx-4">
-            <h1 className="flex justify-center py-3 font-bold">
+            <h1 className="text-center py-2 mb-0
+                md:text-3xl
+                sm:text-2xl
+            ">
                 {post.data.title}
             </h1>
-            <Tags />
+            <div className="text-center text-sm sm:text-xs">{post.data.date}</div>
+            <Tags tags={post.data.tag} />
             <article className="">
                 <Markdown
                     options={{

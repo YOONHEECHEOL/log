@@ -40,13 +40,13 @@ const Nav = (props: any) => {
     }
 
     return (
-        <div className="pb-3">
+        <div className="pb-2 sm:pb-2">
             <div className="flex justify-between content-center px-4 py-1 border-b bg-slate-200">
                 <button className="block cursor-pointer p-1 text-slate-500" onClick={() => props.setSelectedYear(String(Number(props.selectedYear) - 1))}>{String(Number(props.selectedYear) - 1)}</button>
                 <div className="p-1 cursor-pointer font-bold">{props.selectedYear}</div>
                 <button className="p-1 cursor-pointer text-slate-500" onClick={() => props.setSelectedYear(String(Number(props.selectedYear) + 1))}>{String(Number(props.selectedYear) + 1)}</button>
             </div>
-            <div className="flex justify-center content-center px-4 py-1 border-b bg-slate-50">
+            <div className="flex justify-between px-4 py-1 border-b bg-slate-50">
                 {
                     printMonthList(props.selectedMonth).map((x, idx) => {
                         const key = x + '_' + idx;
@@ -54,12 +54,12 @@ const Nav = (props: any) => {
 
                         const isCenter = idx === 6;
                         let far = `text-slate-100 px-4`
-                        if (idx === 0 || idx === 12) far = `cursor-pointer text-slate-100 mx-2 px-2 text-center`;
-                        if (idx === 1 || idx === 11) far = `cursor-pointer text-slate-200 mx-2 px-2 text-center`;
-                        if (idx === 2 || idx === 10) far = `cursor-pointer text-slate-300 mx-2 px-2 text-center`;
-                        if (idx === 3 || idx === 9) far = `cursor-pointer text-slate-400 mx-2 px-2 text-center`;
-                        if (idx === 4 || idx === 8) far = `cursor-pointer text-slate-500 mx-2 px-2 text-center`;
-                        if (idx === 5 || idx === 7) far = `cursor-pointer text-slate-600 mx-2 px-2 text-center`;
+                        if (idx === 0 || idx === 12) far = `cursor-pointer text-slate-100 text-center sm:hidden`;
+                        if (idx === 1 || idx === 11) far = `cursor-pointer text-slate-200 text-center sm:hidden`;
+                        if (idx === 2 || idx === 10) far = `cursor-pointer text-slate-300 text-center sm:hidden`;
+                        if (idx === 3 || idx === 9) far = `cursor-pointer text-slate-400 text-center sm:hidden`;
+                        if (idx === 4 || idx === 8) far = `cursor-pointer text-slate-500 text-center`;
+                        if (idx === 5 || idx === 7) far = `cursor-pointer text-slate-600 text-center`;
 
                         const textStyle = !isCenter ? far : `cursor-pointer text-center text-orange-500 font-bold`;
 
@@ -69,7 +69,7 @@ const Nav = (props: any) => {
                                 className={textStyle}
                                 onClick={() => props.setSelectedMonth(monthStr)}
                             >
-                                {monthStr} ({props.monthArticleCnt[props.selectedYear + '-' + monthStr]})
+                                {monthStr}({props.monthArticleCnt[props.selectedYear + '-' + monthStr]})
                             </div>
                         )
                     })

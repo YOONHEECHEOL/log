@@ -31,7 +31,6 @@ export const PreBlock = ({ children, ...rest }: any) => {
 
     // https://nextjs.org/docs/messages/react-hydration-error
     useEffect(() => {
-        console.log(classValue);
         let lang = 'text';
         if (classValue && classValue.startsWith("lang-")) {
             lang = classValue.replace("lang-", "");

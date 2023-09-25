@@ -18,13 +18,20 @@ export default function RootLayout({
             <head />
             <body>
                 <div className="
-                    container-sm mx-auto min-w-fit
-                    xl:text-xl lg:text-lg md:text-md sm:text-sm">
+                    container-sm mx-auto
+                    overflow-hidden
+                    xl:text-xl
+                    lg:text-lg
+                    md:text-md
+                    sm:text-sm
+                ">
                     <div className='flex flex-auto justify-around'>
                         {/* <Lnb /> */}
                         <div className={`w-full`}>
                             {header}
-                            {children}
+                            <div className='min-h-screen pb-2'>
+                                {children}
+                            </div>
                             {footer}
                         </div>
                     </div>

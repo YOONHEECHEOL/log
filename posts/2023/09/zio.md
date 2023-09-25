@@ -1,5 +1,5 @@
 ---
-title: "스프링 핵심 원리 - 기본편"
+title: "zio"
 subtitle: "김영한 스프링 강의"
 date: "2023-09-15"
 tag: "java spring"

@@ -8,16 +8,16 @@ const getPostMetaData = (): PostMetaData[] => {
     const folder = "posts/";
 
     // 모든 게시글
-    let result = getAllFiles(folder).reverse();
+    let posts = getAllFiles(folder);
   
-    const posts = result.map((fileName: string) => {
+    posts = posts.reduce((acc:any, fileName: string) => {
         const fileContents = fs.readFileSync(`${fileName}`, 'utf8');
         const matterResult = matter(fileContents);
 
         // year, month, day, slug 분리
         const [root, year, month, slug] = fileName.split('/');
 
-        return {
+        acc.push({
             title: matterResult?.data?.title,
             date: matterResult?.data?.date,
             subtitle: matterResult?.data?.subtitle,
@@ -25,8 +25,17 @@ const getPostMetaData = (): PostMetaData[] => {
             year: year,
             month: month,
             slug: slug
-        }
-    })
+        });
+
+        acc.sort((a:any, b:any) => {
+            const aDate = new Date(a?.date).getTime();
+            const bDate = new Date(b?.date).getTime();
+
+            return bDate - aDate;
+        });
+        
+        return acc;
+    }, [])
 
     return posts;
   }
