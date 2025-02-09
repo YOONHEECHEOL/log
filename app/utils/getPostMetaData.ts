@@ -65,10 +65,8 @@ export const getAllFiles:(dir:string) => string[] = (dir) =>
         const name: fs.PathLike = path.join(dir, file);
 
         if (!getIsWindows()) {
-            dir += '.DS_Store';
+            if (name === dir + '.DS_Store') return files;
         }
-
-        if (name === dir + '.DS_Store') return files;
 
         const isDirectory = fs.statSync(name).isDirectory();
         return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
