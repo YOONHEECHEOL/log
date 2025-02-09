@@ -2,7 +2,7 @@ import fs from 'fs';
 import os from 'os';
 import matter from 'gray-matter';
 import path from 'path';
-import {PostMetaData} from "./PostMetaData";
+import { PostMetaData } from "./PostMetaData";
 
 /**
  * 게시글 데이터 조회
@@ -20,7 +20,7 @@ const getPostMetaData = (): PostMetaData[] => {
     const postsObjList = posts.reduce((acc: any, fileName: string) => {
         const fileContents = fs.readFileSync(`${fileName}`, 'utf8');
         const matterResult = matter(fileContents);
-        const {title, date, subtitle, tag} = matterResult.data;
+        const { title, date, subtitle, tag } = matterResult.data;
 
         // year, month, day, slug 분리
         const [root, year, month, slug] = fileName.split(splitStr);
@@ -60,7 +60,7 @@ export default getPostMetaData;
  * 모든 게시글 배열로 반환
  * @param dir : string
  */
-export const getAllFiles:(dir:string) => string[] = (dir) =>
+export const getAllFiles: (dir: string) => string[] = (dir) =>
     fs.readdirSync(dir).reduce((files: any, file) => {
         const name: fs.PathLike = path.join(dir, file);
 
@@ -75,6 +75,6 @@ export const getAllFiles:(dir:string) => string[] = (dir) =>
 /**
  * Windows OS 확인
  */
-const getIsWindows:() => boolean = () => {
+const getIsWindows: () => boolean = () => {
     return os.type().toLowerCase().indexOf('windows') > -1;
 }
